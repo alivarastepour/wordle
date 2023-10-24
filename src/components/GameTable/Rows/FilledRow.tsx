@@ -1,6 +1,6 @@
-import { IGuessItem } from "../../interfaces/IGuessItem";
-import styles from "../../styles/row.module.scss";
-import filledStyles from "../../styles/filledRow.module.scss";
+import { IGuessItem } from "../../../interfaces/IGuessItem";
+import styles from "../../../styles/row.module.scss";
+import filledStyles from "../../../styles/filledRow.module.scss";
 
 function FilledRow({ info }: { info: IGuessItem }) {
   const wordArr = Array.from(info.word);

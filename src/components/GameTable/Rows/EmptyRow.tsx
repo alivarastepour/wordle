@@ -1,5 +1,5 @@
-import { MAX_GUESS_LENGTH } from "../../lib/constants";
-import styles from "../../styles/row.module.scss";
+import { MAX_GUESS_LENGTH } from "../../../lib/constants";
+import styles from "../../../styles/row.module.scss";
 
 function EmptyRow() {
   const wordArr = new Array(MAX_GUESS_LENGTH).fill("");
