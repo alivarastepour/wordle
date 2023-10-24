@@ -1,0 +1,27 @@
+.keyboard-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 400px;
+
+  .keyboard-letter {
+    background-color: #555;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 0.3rem;
+    margin: 0.2rem;
+    font-size: 1rem;
+    font-family: sans-serif;
+    text-align: center;
+    text-transform: capitalize;
+    cursor: pointer;
+
+    &:not(.backspace, .enter) {
+      width: 50px;
+    }
+  }
+
+  .enter {
+    flex-grow: 3;
+  }
+}
