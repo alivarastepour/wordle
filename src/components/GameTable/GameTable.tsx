@@ -16,7 +16,11 @@ function GameTable({
     () => guesses.filter(({ word }) => !!word),
     [guesses]
   );
-  const emptyRows = new Array(MAX_GUESS_COUNT - filledRows.length).fill(null);
+
+  const emptyRows = new Array(MAX_GUESS_COUNT - filledRows.length - 1).fill(
+    null
+  );
+
   return (
     <>
       <div className={styles["game-table-wrapper"]}>
@@ -35,6 +39,7 @@ function GameTable({
             return <EmptyRow key={index} />;
           })}
         </div>
+        <div className={styles["game-state"]}></div>
       </div>
     </>
   );

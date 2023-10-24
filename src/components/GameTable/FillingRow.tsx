@@ -2,7 +2,7 @@ import { MAX_GUESS_LENGTH } from "../../lib/constants";
 import styles from "../../styles/row.module.scss";
 
 function FillingRow({ word }: { word: string }) {
-  const wordArr = new Array(MAX_GUESS_LENGTH);
+  const wordArr = new Array(MAX_GUESS_LENGTH).fill(null);
   return (
     <>
       <div className={styles["x"]}>
