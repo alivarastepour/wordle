@@ -4,6 +4,7 @@ import { TSetState } from "../../types/TSetState";
 import { MAX_GUESS_LENGTH, WORD } from "../../lib/constants";
 import { IGuessItem } from "../../interfaces/IGuessItem";
 import { TGuesses } from "../../types/TGuesses";
+import { TGameState } from "../../types/TGameState";
 
 function determineAccuracy(word: string) {
   const res = [];
@@ -40,7 +41,9 @@ function Keyboard({
   currentGuess,
   setCurrentGuess,
   setGuesses,
+  gameState,
 }: {
+  gameState: TGameState;
   currentGuess: string;
   setGuesses: TSetState<TGuesses>;
   setCurrentGuess: TSetState<string>;
@@ -52,6 +55,8 @@ function Keyboard({
     if (!keyboardWrapper) return;
 
     function handleKeyboardClick(e: MouseEvent) {
+      if (gameState !== "running") return;
+
       const target = e.target;
       const container = e.currentTarget;
       if (Object.is(target, container)) return;
@@ -67,21 +72,22 @@ function Keyboard({
           setCurrentGuess((prev) => prev.concat(content));
           break;
         case "del":
+          if (currentGuess.length === 0) break;
+
           setCurrentGuess((prev) => {
             const length = prev.length;
-            if (length === 0) return prev;
-
             const newCurrentGuess = prev.slice(0, length - 1);
             return newCurrentGuess;
           });
           break;
         case "submit":
+          if (currentGuess.length !== MAX_GUESS_LENGTH) break;
+
           const accuracy = determineAccuracy(currentGuess);
           const newGuess: IGuessItem = {
             accuracy,
             word: currentGuess,
           };
-          console.log(accuracy);
 
           setGuesses((prev) => prev.concat(newGuess));
           setCurrentGuess("");
@@ -95,7 +101,7 @@ function Keyboard({
       if (!keyboardWrapper) return;
       keyboardWrapper.removeEventListener("click", handleKeyboardClick);
     };
-  }, [currentGuess]);
+  }, [currentGuess, gameState]);
 
   return (
     <>

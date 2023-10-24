@@ -1,5 +1,6 @@
 import { MAX_GUESS_COUNT } from "../../lib/constants";
 import styles from "../../styles/gameTable.module.scss";
+import { TGameState } from "../../types/TGameState";
 import { TGuesses } from "../../types/TGuesses";
 import EmptyRow from "./EmptyRow";
 import FilledRow from "./FilledRow";
@@ -8,7 +9,9 @@ import { useMemo } from "react";
 function GameTable({
   guesses,
   currentGuess,
+  gameState,
 }: {
+  gameState: TGameState;
   guesses: TGuesses;
   currentGuess: string;
 }) {
@@ -17,9 +20,9 @@ function GameTable({
     [guesses]
   );
 
-  const emptyRows = new Array(MAX_GUESS_COUNT - filledRows.length - 1).fill(
-    null
-  );
+  const emptyRowBaseLength = MAX_GUESS_COUNT - filledRows.length - 1;
+  const emptyRowsLength = emptyRowBaseLength >= 0 ? emptyRowBaseLength : 0;
+  const emptyRows = new Array(emptyRowsLength).fill(null);
 
   return (
     <>
@@ -32,14 +35,14 @@ function GameTable({
             })}
         </div>
         <div className={`${"row-flex"} ${styles["filling-row-wrapper"]}`}>
-          <FillingRow word={currentGuess} />
+          {gameState === "running" && <FillingRow word={currentGuess} />}
         </div>
         <div className={`${"row-flex"} ${styles["empty-row-wrapper"]}`}>
           {emptyRows.map((_, index) => {
             return <EmptyRow key={index} />;
           })}
         </div>
-        <div className={styles["game-state"]}></div>
+        <div className={styles["game-state"]}>{gameState}</div>
       </div>
     </>
   );
