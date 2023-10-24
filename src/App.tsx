@@ -1,5 +1,11 @@
+import GameWrapper from "./components/GameWrapper/GameWrapper";
+
 function App() {
-  return <>wordle</>;
+  return (
+    <>
+      <GameWrapper />
+    </>
+  );
 }
 
 export default App;
