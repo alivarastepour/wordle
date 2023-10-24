@@ -6,6 +6,7 @@ import FillingRow from "./Rows/FillingRow";
 import { useMemo } from "react";
 import { getFilledRows } from "./getFilledRows";
 import { getEmptyRows } from "./getEmptyRows";
+import { MAX_GUESS_COUNT } from "../../lib/constants";
 
 function GameTable({ guesses, currentGuess, gameState }: IGameTableProps) {
   const filledRows = useMemo(() => getFilledRows(guesses), [guesses]);
@@ -25,7 +26,9 @@ function GameTable({ guesses, currentGuess, gameState }: IGameTableProps) {
             })}
         </div>
         <div className={`${"row-flex"} ${styles["filling-row-wrapper"]}`}>
-          <FillingRow word={currentGuess} />
+          {filledRows.length !== MAX_GUESS_COUNT && (
+            <FillingRow word={currentGuess} />
+          )}
         </div>
         <div className={`${"row-flex"} ${styles["empty-row-wrapper"]}`}>
           {emptyRows.map((_, index) => {
