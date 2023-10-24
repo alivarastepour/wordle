@@ -25,14 +25,16 @@ function GameTable({ guesses, currentGuess, gameState }: IGameTableProps) {
             })}
         </div>
         <div className={`${"row-flex"} ${styles["filling-row-wrapper"]}`}>
-          {gameState === "running" && <FillingRow word={currentGuess} />}
+          <FillingRow word={currentGuess} />
         </div>
         <div className={`${"row-flex"} ${styles["empty-row-wrapper"]}`}>
           {emptyRows.map((_, index) => {
             return <EmptyRow key={index} />;
           })}
         </div>
-        <div className={styles["game-state"]}>{gameState}</div>
+        <div className={styles["game-state"]}>
+          {gameState !== "running" && gameState}
+        </div>
       </div>
     </>
   );
