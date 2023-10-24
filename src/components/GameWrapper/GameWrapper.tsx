@@ -1,5 +1,13 @@
+import GameTable from "../GameTable/GameTable";
+import Keyboard from "../Keyboard/Keyboard";
+
 function GameWrapper() {
-  return <>game wrapper</>;
+  return (
+    <>
+      <GameTable />
+      <Keyboard />
+    </>
+  );
 }
 
 export default GameWrapper;
