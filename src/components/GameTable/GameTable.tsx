@@ -1,28 +1,18 @@
-import { MAX_GUESS_COUNT } from "../../lib/constants";
+import { IGameTableProps } from "../../interfaces/IGameTableProps";
 import styles from "../../styles/gameTable.module.scss";
-import { TGameState } from "../../types/TGameState";
-import { TGuesses } from "../../types/TGuesses";
-import EmptyRow from "./EmptyRow";
-import FilledRow from "./FilledRow";
-import FillingRow from "./FillingRow";
+import EmptyRow from "./Rows/EmptyRow";
+import FilledRow from "./Rows/FilledRow";
+import FillingRow from "./Rows/FillingRow";
 import { useMemo } from "react";
-function GameTable({
-  guesses,
-  currentGuess,
-  gameState,
-}: {
-  gameState: TGameState;
-  guesses: TGuesses;
-  currentGuess: string;
-}) {
-  const filledRows = useMemo(
-    () => guesses.filter(({ word }) => !!word),
-    [guesses]
-  );
+import { getFilledRows } from "./getFilledRows";
+import { getEmptyRows } from "./getEmptyRows";
 
-  const emptyRowBaseLength = MAX_GUESS_COUNT - filledRows.length - 1;
-  const emptyRowsLength = emptyRowBaseLength >= 0 ? emptyRowBaseLength : 0;
-  const emptyRows = new Array(emptyRowsLength).fill(null);
+function GameTable({ guesses, currentGuess, gameState }: IGameTableProps) {
+  const filledRows = useMemo(() => getFilledRows(guesses), [guesses]);
+  const emptyRows = useMemo(
+    () => getEmptyRows(filledRows.length),
+    [filledRows]
+  );
 
   return (
     <>
